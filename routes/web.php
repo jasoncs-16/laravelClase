@@ -36,22 +36,33 @@ Route::middleware(['auth'])->group(function () {
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-Route::post('/procesar-datos', [DatosController::class, 'procesar'], function (Request $solicitud) {
-    $nombre = $solicitud->input('name');
-    $edad = $solicitud->input('year');
-    return "Me llamo $nombre y tengo $edad años";
-
-})->name('procesar_datos.procesar');
+Route::post('/procesar-datos', [DatosController::class, 'procesar']);
 
 class DatosController extends Controller 
 {
     public function procesar(Request $solicitud) 
     {
-        $validados = $solicitud->validate([
-        'name' => 'required|string|max:255',
-        'year' => 'required|int',
-        ]);
+        $validacion = [
+            'nombre' => 'required|string|max:255',
+            'edad' => 'required|int'
+        ];
+
+        $datos = [
+            'nombre' => $solicitud->input('nombre'), 
+            'edad' => $solicitud->input('edad')
+        ];
+
+        $validarDatos = Validator::make($datos, $validacion);
+
+        if ($validarDatos->fails()) {
+            return response()->json([
+                'mensaje' => 'Error',
+                'error' => $validarDatos->errors()
+            ], 400);
+        } else {
+            return "Hola, {$datos['nombre']}. Tienes {$datos['edad']} años.";
+        }
     }
-    
 }
