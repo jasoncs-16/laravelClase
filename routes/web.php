@@ -66,3 +66,9 @@ class DatosController extends Controller
         }
     }
 }
+
+// ============ Gestión de libros ============
+
+Route::get('/formulario_libros', function () {
+    return view('formulario_libros');
+});
