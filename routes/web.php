@@ -69,6 +69,8 @@ class DatosController extends Controller
 
 // ============ Gestión de libros ============
 
-Route::get('/formulario_libros', function () {
-    return view('formulario_libros');
-});
+use App\Http\Controllers\LibroController;
+
+Route::get('/libro', [LibroController::class, 'index'])->name('libro.index');
+Route::get('/libro/alta', [LibroController::class, 'create'])->name('libro.create');
+Route::post('/libro/alta', [LibroController::class, 'create'])->name('libro.create');
