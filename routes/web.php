@@ -74,9 +74,3 @@ use App\Http\Controllers\LibroController;
 Route::get('/libro', [LibroController::class, 'index'])->name('libro.index');
 Route::get('/libro/alta', [LibroController::class, 'create'])->name('libro.create');
 Route::post('/libro/alta', [LibroController::class, 'create'])->name('libro.create');
-
-Route::get('/libro/alta', [LibroController::class, 'edit'])->name('libro.edit');
-Route::post('/libro/alta', [LibroController::class, 'edit'])->name('libro.edit');
-
-Route::get('/libro/alta', [LibroController::class, 'delete'])->name('libro.create');
-Route::post('/libro/alta', [LibroController::class, 'create'])->name('libro.create');
